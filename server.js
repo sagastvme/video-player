@@ -18,15 +18,21 @@ serve({
             return new Response(Bun.file("./index.html"));
         }
 
+        let videoCount = null;
+
         if (url.pathname === "/randomvideo") {
-            const videoDir = './videos'
-            const files = fs.readdirSync(videoDir); // Synchronous read, use fs.readdir for async
-            const videoFiles = files.filter(file => file.endsWith('.mp4')); // Assuming you're looking for mp4 files
-            const videoCount = videoFiles.length;
+            if (videoCount === null) {
+                const videoDir = './videos';
+                const files = fs.readdirSync(videoDir);  // Synchronous read, use fs.readdir for async
+                const videoFiles = files.filter(file => file.endsWith('.mp4'));  // Assuming you're looking for mp4 files
+                videoCount = videoFiles.length;  // Update videoCount
+            }
+
             const randomInteger = Math.floor(Math.random() * (videoCount - 1 + 1)) + 1;
-            const path = `./videos/${randomInteger}.mp4`
+            const path = `./videos/${randomInteger}.mp4`;
             return new Response(Bun.file(path));
         }
+
         return new Response(`404!`);
     }
 });
