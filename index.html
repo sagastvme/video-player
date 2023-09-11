@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Your random video</title>
+    <style>
+        /* Reset some default browser styles */
+        body, h1, video {
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Make a background color */
+        body {
+            background: #f0f0f0;
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            height: 100vh;
+            margin: 0;
+        }
+
+        /* Style the header */
+        h1 {
+            background: #333;
+            color: white;
+            padding: 1em;
+            text-align: center;
+            font-size: 2em;
+            width: 100%;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Style the video player */
+        #videoPlayer {
+            margin-top: 2em;
+            width: 80%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        /* Add some hover effects */
+        #videoPlayer:hover {
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        }
+    </style>
+</head>
+<body>
+<h1>Your random video</h1>
+
+<video id="videoPlayer" autoplay preload="metadata" playsinline controls>
+    <source src="http://localhost:8080/randomvideo" type="video/mp4">
+</video>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const videoPlayer = document.getElementById('videoPlayer');
+        videoPlayer.addEventListener('ended', function () {
+            videoPlayer.src = "http://localhost:8080/randomvideo";
+            videoPlayer.load();
+        });
+    });
+</script>
+</body>
+</html>
